@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class App {
+\ublic class App {
     private static boolean uiExit = true;
 
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

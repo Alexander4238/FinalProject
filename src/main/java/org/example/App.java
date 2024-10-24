@@ -11,21 +11,56 @@ public class App {
 
     public static void main(String[] args) {
         String choice;
+
+        System.out.println("This is a sort application");
+        System.out.println("Select data source to sort:");
+        System.out.println("f - from file");
+        System.out.println("r - random data");
+        System.out.println("c - custom data");
+        System.out.println("x - exit");
+
         while (uiExit) {
-            System.out.println("This is a sort application");
-            System.out.println("Select data source to sort:");
-            System.out.println("f - from file");
-            System.out.println("r - random data");
-            System.out.println("c - custom data");
-            System.out.println("e - exit");
             try {
-                choice = reader.readLine();
-                if (choice.equalsIgnoreCase("Y")) {
+                choice = reader.readLine().toLowerCase();
+
+                if (choice.equalsIgnoreCase("X")) {
                     uiExit = false;
                 }
+
+                switch (choice) {
+                    case ("f"): {
+                        processListFromFile();
+                        break;
+                    }
+                    case ("r"): {
+                        processRandomList();
+                        break;
+                    }
+                    case ("c"): {
+                        processManualList();
+                        break;
+                    }
+                }
             } catch (IOException e) {
-                System.out.println("pls enter correct letter");
-            }
+                System.out.println(e.getMessage());;
+            };
         }
+
     }
+
+    public static void processListFromFile() {
+        System.out.println("get list from file");
+        System.out.println("pls, enter file address? x - to exit");
+        System.out.println("file opened x - to exit, s - to sort");
+    }
+
+    public static void processRandomList() {
+        System.out.println("generate random list");
+    }
+
+    public static void processManualList() {
+        System.out.println("create list manually");
+    }
+
+
 }

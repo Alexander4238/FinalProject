@@ -1,6 +1,8 @@
 package org.example.models;
 
-public class RootCrop {
+import java.io.Serializable;
+
+public class RootCrop implements Serializable {
     private String type;
     private double weight;
     private String color;

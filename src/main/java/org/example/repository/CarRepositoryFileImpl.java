@@ -27,7 +27,7 @@ public class CarRepositoryFileImpl implements CarRepository {
     }
 
     @Override
-    public List<Car> readFirst(int i, String fileName) {
+    public List<Car> readFirst(int countFromStart, String fileName) {
         List<Car> cars = new ArrayList<>();
         Car car;
 
@@ -38,11 +38,11 @@ public class CarRepositoryFileImpl implements CarRepository {
             System.out.println("file not found");
         }
 
-        ObjectInputStream objectInputStream = null;
+        ObjectInputStream objectInputStream;
         try {
             objectInputStream = new ObjectInputStream(fileInputStream);
-            car = (Car) objectInputStream.readObject();
-            for (int j = 0; j < i; j++) {
+            for (int j = 0; j < countFromStart; j++) {
+                car = (Car) objectInputStream.readObject();
                 cars.add(car);
             }
             objectInputStream.close();

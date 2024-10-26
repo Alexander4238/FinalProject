@@ -1,4 +1,4 @@
-package src.main.java.org.example.models;
+package org.example.models;
 
 public class RootCrop {
     private String type;

@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RootCropRandom {
+public abstract class RootCropRandom {
     public static void main (String[] args) {
         int number = 15;
 

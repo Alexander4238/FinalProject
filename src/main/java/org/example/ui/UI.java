@@ -1,59 +1,96 @@
 package org.example.ui;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.example.repository.FileRepository;
+import org.example.repository.FileRepositoryImpl;
+
+import java.util.List;
+import java.util.Scanner;
+
+import static org.example.util.Validator.intValidate;
 
 public class UI {
-    private static boolean uiExit = true;
+    private static boolean uiExit = false;
 
-    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    public static void mainMenu() {
 
-    public static void main(String[] args) {
         String choice;
+        Integer intChoice;
 
-        System.out.println("This is a sort application");
-        System.out.println("Select data source to sort:");
-        System.out.println("f - from file");
-        System.out.println("r - random data");
-        System.out.println("c - custom data");
-        System.out.println("x - exit");
+        System.out.println("Это приложение для сортировки");
+        System.out.println("Выберите источник данных: 1 - из файла, 2 - случайный список, 3 - создать вручную");
+        System.out.println("4 - завершить программу");
 
-        while (uiExit) {
-            try {
-                choice = reader.readLine().toLowerCase();
+        while (!uiExit) {
 
-                if (choice.equalsIgnoreCase("X")) {
-                    uiExit = false;
-                }
-
-                switch (choice) {
-                    case ("f"): {
-                        processListFromFile();
-                        break;
-                    }
-                    case ("r"): {
-                        processRandomList();
-                        break;
-                    }
-                    case ("c"): {
-                        processManualList();
-                        break;
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                ;
+            Scanner sc = new Scanner(System.in);
+            choice = sc.nextLine();
+            while (!intValidate(choice)) {
+                System.out.println("Введите число!");
             }
-            ;
-        }
+            intChoice = Integer.parseInt(choice);
 
+            if (intChoice == 4) {
+                uiExit = true;
+            } else if (intChoice < 1 || intChoice > 4) {
+                System.out.println("Введите число от 1 до 4");
+            }
+
+            switch (intChoice) {
+                case (1): {
+                    processListFromFile();
+                    break;
+                }
+                case (2): {
+                    processRandomList();
+                    break;
+                }
+                case (3): {
+                    processManualList();
+                    break;
+                }
+            }
+        }
     }
 
     public static void processListFromFile() {
-        System.out.println("get list from file");
-        System.out.println("pls, enter file address? x - to exit");
-        System.out.println("file opened x - to exit, s - to sort");
+        String choice;
+        Integer intChoice;
+        List<?> list;
+
+        System.out.println("Прочитать из файла - 1, Сохранить в файл - 2");
+
+        Scanner sc = new Scanner(System.in);
+        choice = sc.nextLine();
+
+            intChoice = Integer.parseInt(choice);
+            if (intChoice < 1 || intChoice > 2) {
+                System.out.println("Введите число от 1 до 2");
+            }
+            switch (intChoice) {
+                case (1): {
+                    Scanner sc1 = new Scanner(System.in);
+                    String filename = sc1.nextLine();
+                    FileRepository<?> repository = new FileRepositoryImpl<>();
+                    list = repository.readFromFile(filename);
+                    printArray(list);
+                    uiExit = true;
+                    break;
+                }
+
+                case (2): {
+                    processRandomList();
+                    break;
+                }
+            }
+
+
+
+    }
+
+    static void printArray(List<?> list) {
+        for (Object entity : list) {
+            System.out.println(entity.toString());
+        }
     }
 
     public static void processRandomList() {

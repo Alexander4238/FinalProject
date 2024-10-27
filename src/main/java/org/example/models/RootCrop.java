@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class RootCrop implements Serializable {
     private String type;
-    private double weight;
+    private int weight;
     private String color;
 
     RootCrop(RootCropBuilder rootCropBuilder) {
@@ -17,7 +17,7 @@ public class RootCrop implements Serializable {
     public String getType() {
         return type;
     }
-    public Double getWeight() {
+    public Integer getWeight() {
         return weight;
     }
     public String getColor() {
@@ -44,14 +44,14 @@ public class RootCrop implements Serializable {
 
     public static class RootCropBuilder {
         private String type;
-        private double weight;
+        private int weight;
         private String color;
 
         public RootCropBuilder setType(String type){
             this.type = type;
             return this;
         }
-        public RootCropBuilder setWeight(double weight){
+        public RootCropBuilder setWeight(int weight){
             this.weight = weight;
             return this;
         }

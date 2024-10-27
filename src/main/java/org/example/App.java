@@ -1,8 +1,7 @@
 package org.example;
 
 import org.example.models.Car;
-import org.example.repository.CarRepository;
-import org.example.repository.CarRepositoryFileImpl;
+import org.example.repository.FileRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +22,10 @@ public class App {
         System.out.println("cars:");
         printArray(cars);
 
-        CarRepository carRepository = new CarRepositoryFileImpl();
-        carRepository.saveToFile(cars, "cars.out");
+        FileRepositoryImpl repository = new FileRepositoryImpl();
+        repository.saveToFile(cars, "cars.out");
 
-        List<Car> cars1 = carRepository.readFirst(3, "cars.out");
+        List<Car> cars1 = repository.readFromFile("cars.out");
         System.out.println("cars:");
         printArray(cars1);
     }

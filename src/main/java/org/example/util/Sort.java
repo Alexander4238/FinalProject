@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Sort {
+public abstract class Sort {
     public static <T extends Comparable> void mergeSort (List<T> list) {
         mergeSort(list, T::compareTo);
     }

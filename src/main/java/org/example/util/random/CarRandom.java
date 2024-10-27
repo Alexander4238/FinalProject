@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CarRandom {
+public abstract class CarRandom {
     public static void main (String[] args) {
         int number = 15;
 

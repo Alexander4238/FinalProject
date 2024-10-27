@@ -3,11 +3,10 @@ package org.example.util.random;
 import org.example.models.RootCrop;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.example.util.random.RandomUtils.getRandomIntInRange;
+import static org.example.util.random.RandomUtils.getRandomDoubleInRange;
 import static org.example.util.random.RandomUtils.getRandomStringFromArray;
 
 public abstract class RootCropRandom {
@@ -21,7 +20,7 @@ public abstract class RootCropRandom {
         return Stream.generate(() ->
                         new RootCrop.RootCropBuilder()
                                 .setType(getRandomStringFromArray(types))
-                                .setWeight(getRandomIntInRange(WEIGHT_MIN, WEIGHT_MAX))
+                                .setWeight(getRandomDoubleInRange(WEIGHT_MIN, WEIGHT_MAX))
                                 .setColor(getRandomStringFromArray(colors))
                                 .build())
                 .limit(listSize)

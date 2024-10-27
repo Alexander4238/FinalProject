@@ -14,8 +14,8 @@ public class RootCropRandom {
             RootCrop rootCrop = new RootCrop.RootCropBuilder()
                     .setType(getRandomType())
                     .setWeight(getRandomWeight())
-                    .setColor(getRandomColor()).
-                    build();
+                    .setColor(getRandomColor())
+                            .build();
             rootCropList.add(rootCrop);
         }
 

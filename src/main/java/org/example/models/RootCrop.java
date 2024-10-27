@@ -41,7 +41,7 @@ public class RootCrop implements Serializable {
             this.weight = weight;
             return this;
         }
-        public RootCropBuilder setYear(String color){
+        public RootCropBuilder setColor(String color) {
             this.color = color;
             return this;
         }

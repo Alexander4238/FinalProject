@@ -26,6 +26,11 @@ public class Book implements Serializable {
         return pagesQuantity;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Книга: Название: %s, Автор: %s, Количество страниц: %d", getTitle(), getAuthor(), getPagesQuantity());
+    }
+
     public static class BookBuilder {
         private String author;
         private String title;

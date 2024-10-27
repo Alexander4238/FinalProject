@@ -22,6 +22,12 @@ public class Car implements Serializable {
     public int getYear() {
         return year;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Машина: Модель: %s, Мощность: %d, Год: %d", getModel(), getPower(), getYear());
+    }
+
     public static class CarBuilder {
         private int power;
         private String model;

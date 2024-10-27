@@ -22,6 +22,12 @@ public class RootCrop implements Serializable {
     public String getColor() {
         return color;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Корнеплод: Тип: %s, Вес: %d, Цвет: %s", getType(), getWeight(), getColor());
+    }
+
     public static class RootCropBuilder {
         private String type;
         private double weight;

@@ -1,12 +1,15 @@
-package org.example.models;
+package org.example.util.random;
+import org.example.models.RootCrop;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class RootCropRandom {
     public static void main (String[] args) {
-
-        RandomSize randomSize = new RandomSize();
-        int number = randomSize.randomNumber();
+        int number = 15;
 
         List<RootCrop> rootCropList = new ArrayList<>();
 
@@ -24,6 +27,17 @@ public class RootCropRandom {
 //            System.out.println(rootCrop.getWeight());
 //            System.out.println(rootCrop.getColor());
 //        }
+    }
+
+    public static List<RootCrop> getRandomList(int listSize) {
+        return Stream.generate(() ->
+                        new RootCrop.RootCropBuilder()
+                                .setType(getRandomType())
+                                .setWeight(getRandomWeight())
+                                .setColor(getRandomColor())
+                                .build())
+                .limit(listSize)
+                .collect(Collectors.toList());
     }
 
     private static String getRandomType() {

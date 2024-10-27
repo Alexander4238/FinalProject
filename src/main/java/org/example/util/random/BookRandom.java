@@ -1,12 +1,15 @@
-package org.example.models;
+package org.example.util.random;
+import org.example.models.Book;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-public class BookRandom {
-    public static void main (String[] args) {
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-        RandomSize randomSize = new RandomSize();
-        int number = randomSize.randomNumber();
+public class BookRandom {
+    public static void main (String[] args) {//TODO DelME
+        int number = 10;
 
         List<Book> bookList = new ArrayList<>();
 
@@ -26,6 +29,17 @@ public class BookRandom {
 //        }
     }
 
+    public static List<Book> getRandomList(int listSize) {
+        return Stream.generate(() ->
+                new Book.BookBuilder()
+                .author(getRandomAuthor())
+                .title(getRandomTitle())
+                .pagesQuantity(getRandomPagesQuantity())
+                .build())
+                .limit(listSize)
+                .collect(Collectors.toList());
+    }
+
     private static String getRandomAuthor() {
         String[] authors = {"Блок", "Маяковский", "Есенин", "Пастернак", "Ахматова", "Волошин"};
         Random random = new Random();
@@ -37,7 +51,6 @@ public class BookRandom {
         Random random = new Random();
         return titles[random.nextInt(titles.length)];
     }
-
 
     private static int getRandomPagesQuantity() {
         Random random = new Random();

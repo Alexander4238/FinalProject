@@ -1,12 +1,15 @@
-package org.example.models;
+package org.example.util.random;
+import org.example.models.Car;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class CarRandom {
     public static void main (String[] args) {
-
-        RandomSize randomSize = new RandomSize();
-        int number = randomSize.randomNumber();
+        int number = 15;
 
         List<Car> carList = new ArrayList<>();
 
@@ -24,6 +27,17 @@ public class CarRandom {
 //            System.out.println(car.getModel());
 //            System.out.println(car.getYear());
 //        }
+    }
+
+    public static List<Car> getRandomList(int listSize) {
+        return Stream.generate(() ->
+                        new Car.CarBuilder()
+                                .setPower(getRandomPower())
+                                .setModel(getRandomModel())
+                                .setYear(getRandomYear())
+                                .build())
+                .limit(listSize)
+                .collect(Collectors.toList());
     }
 
     private static int getRandomPower() {

@@ -1,6 +1,7 @@
 package org.example.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Car implements Serializable {
     private int power;
@@ -21,6 +22,19 @@ public class Car implements Serializable {
     }
     public int getYear() {
         return year;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return power == car.power && year == car.year && Objects.equals(model, car.model);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(power, model, year);
     }
 
     @Override

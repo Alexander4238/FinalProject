@@ -1,6 +1,7 @@
 package org.example.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Book implements Serializable {
 
@@ -24,6 +25,19 @@ public class Book implements Serializable {
 
     public int getPagesQuantity() {
         return pagesQuantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return pagesQuantity == book.pagesQuantity && Objects.equals(author, book.author) && Objects.equals(title, book.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(author, title, pagesQuantity);
     }
 
     @Override

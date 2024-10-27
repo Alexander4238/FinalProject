@@ -1,6 +1,7 @@
 package org.example.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class RootCrop implements Serializable {
     private String type;
@@ -21,6 +22,19 @@ public class RootCrop implements Serializable {
     }
     public String getColor() {
         return color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RootCrop rootCrop = (RootCrop) o;
+        return Double.compare(rootCrop.weight, weight) == 0 && Objects.equals(type, rootCrop.type) && Objects.equals(color, rootCrop.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, weight, color);
     }
 
     @Override

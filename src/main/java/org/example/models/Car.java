@@ -1,6 +1,8 @@
-package src.main.java.org.example.models;
+package org.example.models;
 
-public class Car {
+import java.io.Serializable;
+
+public class Car implements Serializable {
     private int power;
     private String model;
     private int year;

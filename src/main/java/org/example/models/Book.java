@@ -1,6 +1,8 @@
 package org.example.models;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
 
     private final String author;
     private final String title;

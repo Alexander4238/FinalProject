@@ -1,66 +1,42 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.example.models.Car;
+import org.example.repository.CarRepository;
+import org.example.repository.CarRepositoryFileImpl;
 
-\ublic class App {
-    private static boolean uiExit = true;
+import java.util.ArrayList;
+import java.util.List;
 
-    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
+public class App {
     public static void main(String[] args) {
-        String choice;
+        Car car1 = new Car.CarBuilder().setModel("Audi A6").setPower(300).setYear(2021).build();
+        Car car2 = new Car.CarBuilder().setModel("Audi A7").setPower(245).setYear(2022).build();
+        Car car3 = new Car.CarBuilder().setModel("Audi A8").setPower(420).setYear(2023).build();
+        Car car4 = new Car.CarBuilder().setModel("Audi RS").setPower(500).setYear(2024).build();
 
-        System.out.println("This is a sort application");
-        System.out.println("Select data source to sort:");
-        System.out.println("f - from file");
-        System.out.println("r - random data");
-        System.out.println("c - custom data");
-        System.out.println("x - exit");
+        List<Car> cars = new ArrayList<Car>();
+        cars.add(car1);
+        cars.add(car2);
+        cars.add(car3);
+        cars.add(car4);
 
-        while (uiExit) {
-            try {
-                choice = reader.readLine().toLowerCase();
+        System.out.println("cars:");
+        printArray(cars);
 
-                if (choice.equalsIgnoreCase("X")) {
-                    uiExit = false;
-                }
+        CarRepository carRepository = new CarRepositoryFileImpl();
+        carRepository.saveToFile(cars, "cars.out");
 
-                switch (choice) {
-                    case ("f"): {
-                        processListFromFile();
-                        break;
-                    }
-                    case ("r"): {
-                        processRandomList();
-                        break;
-                    }
-                    case ("c"): {
-                        processManualList();
-                        break;
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());;
-            };
+        List<Car> cars1 = carRepository.readFirst(3, "cars.out");
+        System.out.println("cars:");
+        printArray(cars1);
+    }
+
+    static void printArray(List<Car> cars) {
+        int n = cars.size();
+        Car car;
+        for (Car value : cars) {
+            System.out.println(value.getModel() + " " + value.getPower() + " " + value.getYear());
         }
-
     }
-
-    public static void processListFromFile() {
-        System.out.println("get list from file");
-        System.out.println("pls, enter file address? x - to exit");
-        System.out.println("file opened x - to exit, s - to sort");
-    }
-
-    public static void processRandomList() {
-        System.out.println("generate random list");
-    }
-
-    public static void processManualList() {
-        System.out.println("create list manually");
-    }
-
 
 }

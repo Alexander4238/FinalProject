@@ -1,9 +1,6 @@
 package org.example.repository;
 
-import org.example.models.Car;
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FileRepositoryImpl<T> implements FileRepository<T>{

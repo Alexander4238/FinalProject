@@ -7,6 +7,9 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+public abstract class BookRandom {
+    public static void main (String[] args) {//TODO DelME
+        int number = 10;
 import static org.example.util.random.RandomUtils.getRandomIntInRange;
 import static org.example.util.random.RandomUtils.getRandomStringFromArray;
 

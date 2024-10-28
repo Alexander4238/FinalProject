@@ -62,27 +62,26 @@ public class UI {
         Scanner sc = new Scanner(System.in);
         choice = sc.nextLine();
 
-            intChoice = Integer.parseInt(choice);
-            if (intChoice < 1 || intChoice > 2) {
-                System.out.println("Введите число от 1 до 2");
-            }
-            switch (intChoice) {
-                case (1): {
-                    Scanner sc1 = new Scanner(System.in);
-                    String filename = sc1.nextLine();
-                    FileRepository<?> repository = new FileRepositoryImpl<>();
-                    list = repository.readFromFile(filename);
-                    printArray(list);
-                    uiExit = true;
-                    break;
-                }
-
-                case (2): {
-                    processRandomList();
-                    break;
-                }
+        intChoice = Integer.parseInt(choice);
+        if (intChoice < 1 || intChoice > 2) {
+            System.out.println("Введите число от 1 до 2");
+        }
+        switch (intChoice) {
+            case (1): {
+                Scanner sc1 = new Scanner(System.in);
+                String filename = sc1.nextLine();
+                FileRepository<?> repository = new FileRepositoryImpl<>();
+                list = repository.readFromFile(filename);
+                printArray(list);
+                uiExit = true;
+                break;
             }
 
+            case (2): {
+                processRandomList();
+                break;
+            }
+        }
 
 
     }

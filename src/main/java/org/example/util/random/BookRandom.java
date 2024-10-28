@@ -3,13 +3,9 @@ package org.example.util.random;
 import org.example.models.Book;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class BookRandom {
-    public static void main (String[] args) {//TODO DelME
-        int number = 10;
 import static org.example.util.random.RandomUtils.getRandomIntInRange;
 import static org.example.util.random.RandomUtils.getRandomStringFromArray;
 
@@ -22,11 +18,11 @@ public abstract class BookRandom {
 
     public static List<Book> getRandomList(int listSize) {
         return Stream.generate(() ->
-                new Book.BookBuilder()
-                .author(getRandomStringFromArray(authors))
-                .title(getRandomStringFromArray(titles))
-                .pagesQuantity(getRandomIntInRange(PAGE_MIN, PAGE_MAX))
-                .build())
+                        new Book.BookBuilder()
+                                .author(getRandomStringFromArray(authors))
+                                .title(getRandomStringFromArray(titles))
+                                .pagesQuantity(getRandomIntInRange(PAGE_MIN, PAGE_MAX))
+                                .build())
                 .limit(listSize)
                 .collect(Collectors.toList());
     }

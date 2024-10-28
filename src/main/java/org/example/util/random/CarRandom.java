@@ -4,7 +4,6 @@ import org.example.models.Car;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

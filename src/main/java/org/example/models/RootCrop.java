@@ -17,9 +17,11 @@ public class RootCrop implements Serializable {
     public String getType() {
         return type;
     }
-    public Double getWeight() {
+
+    public double getWeight() {
         return weight;
     }
+
     public String getColor() {
         return color;
     }
@@ -39,7 +41,7 @@ public class RootCrop implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Корнеплод: Тип: %s, Вес: %d, Цвет: %s", getType(), getWeight(), getColor());
+        return String.format("Корнеплод: Тип: %s, Вес: %f, Цвет: %s", getType(), getWeight(), getColor());
     }
 
     public static class RootCropBuilder {
@@ -47,14 +49,16 @@ public class RootCrop implements Serializable {
         private double weight;
         private String color;
 
-        public RootCropBuilder setType(String type){
+        public RootCropBuilder setType(String type) {
             this.type = type;
             return this;
         }
-        public RootCropBuilder setWeight(double weight){
+
+        public RootCropBuilder setWeight(double weight) {
             this.weight = weight;
             return this;
         }
+
         public RootCropBuilder setColor(String color) {
             this.color = color;
             return this;

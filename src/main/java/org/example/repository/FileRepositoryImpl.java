@@ -1,14 +1,25 @@
 package org.example.repository;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileRepositoryImpl<T> implements FileRepository<T>{
 
     @Override
     public void saveToFile(List<T> list, String fileName) {
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileName, true))) {
-                objectOutputStream.writeObject(list);
+        List<T> existList = null;
+        if(Files.exists(Path.of(fileName))) {
+            existList = new ArrayList<T>(readFromFile(fileName));
+            existList.addAll(list);
+        }
+        else {
+            existList = list;
+        }
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileName, false))) {
+                objectOutputStream.writeObject(existList);
         } catch (IOException e) {
             System.out.println("Fail to save file!");
         }

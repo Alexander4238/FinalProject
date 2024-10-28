@@ -1,65 +1,17 @@
-package org.example.userInput;
+package org.example.ui;
 
 import org.example.models.Book;
 import org.example.models.Car;
 import org.example.models.RootCrop;
+import org.example.util.ScannerHolder;
+import org.example.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Optional;
 
-public class UserInput {
-    //тип класса
-    static int classType = 0;
-
+public class ManualInput {
     //размер списка
-    static int listSize = 0;
-
-    public static boolean onlyOneNumber(String strLine) {
-        boolean b = true;
-        String[] dataEntryArray = strLine.split("");
-        for (String s : dataEntryArray) {
-            if (s.matches("[1-3]")) {
-            } else {
-                b = false;
-                break;
-            }
-        }
-        if (b) {
-            int a = Integer.parseInt(strLine);
-            if (a > 0 && a < 4) {
-                return b;
-            } else {
-                b = false;
-                return b;
-            }
-        } else {
-            return b;
-        }
-    }
-
-    public static boolean listSize(String strLine) {
-        boolean b = true;
-        String[] dataEntryArray = strLine.split("");
-        for (String s : dataEntryArray) {
-            if (s.matches("[0-9]")) {
-            } else {
-                b = false;
-                break;
-            }
-        }
-        if (b) {
-            int a = Integer.parseInt(strLine);
-            if (a > 0 && a < 11) {
-                return b;
-            } else {
-                b = false;
-                return b;
-            }
-        } else {
-            return b;
-        }
-    }
 
     public static boolean powerForCars(String strLine) {
         boolean b = true;
@@ -153,33 +105,15 @@ public class UserInput {
         }
     }
 
-
-    public static void manualWorkWithList(Scanner sc) {
-        System.out.println("выберите тип класса(введите цифру 1-3): 1.Автомобиль  2.Книга  3.Корнеплод");
+    public static List getList(int classType) {
+        int listSize = 0;
+        System.out.println("введите размер списка");
         boolean stopBlock = true;
         while (stopBlock) {
-            String dataEntry = sc.nextLine();
-            stopBlock = onlyOneNumber(dataEntry);
-            if (stopBlock) {
-                int a = Integer.parseInt(dataEntry);
-                classType = a;
-                System.out.format("тип выбран %s", (a == 1 ? "Автомобиль" : (a == 2 ? "Книга" : "Корнеплод")));
-                System.out.println();
-                stopBlock = false;
-            } else {
-                System.out.println("вы ввели не верное значение для типа");
-                System.out.println("выберите тип класса(введите цифру 1-3): 1.Автомобиль  2.Книга  3.Корнеплод");
-                stopBlock = true;
-            }
-        }
-        System.out.println("введите размер списка");
-        stopBlock = true;
-        while (stopBlock) {
-            String dataEntry = sc.nextLine();
-            stopBlock = listSize(dataEntry);
-            if (stopBlock) {
-                int a = Integer.parseInt(dataEntry);
-                listSize = a;
+            String dataEntry = ScannerHolder.get().nextLine();
+            Optional<Integer> sizeOpt = Validator.getValidInt(dataEntry);
+            if (sizeOpt.isPresent() && sizeOpt.get() > 0 && sizeOpt.get() < 11) {
+                listSize = Integer.parseInt(dataEntry);
                 System.out.println("размер списка - " + listSize);
                 System.out.println();
                 stopBlock = false;
@@ -188,7 +122,6 @@ public class UserInput {
                 System.out.println("введите размер списка от 1 до 10 (размер для теста)");
                 stopBlock = true;
             }
-
         }
         System.out.println("начнем заполнять в следующем формате ...");
         switch (classType) {
@@ -203,23 +136,20 @@ public class UserInput {
                 break;
         }
 
-        if (classType == 1) {
-            List<Car> listCar = getListCar(sc, listSize);
-            CustomSorting.customSortingOfCars(sc, listCar);
-            //Сохранить сортированный список listCar в базу и написать об этом
-        } else if (classType == 2) {
-            List<Book> listBook = getListBook(sc, listSize);
-            CustomSorting.customSortingOfBook(sc, listBook);
-            //Сохранить сортированный список listBook в базу и написать об этом
-        } else {
-            List<RootCrop> listRootCrop = getListRootCrop(sc, listSize);
-            CustomSorting.customSortingOfRootCrop(sc, listRootCrop);
-            //Сохранить сортированный список listRootCrop в базу и написать об этом1
-        }
-
+        return customInput(classType, listSize);
     }
 
-    public static List<Car> getListCar(Scanner sc, int listSize) {
+    private static List customInput(int classType, int listSize) {
+        if (classType == 1) {
+            return getListCar(listSize);
+        } else if (classType == 2) {
+            return getListBook(listSize);
+        } else {
+            return getListRootCrop(listSize);
+        }
+    }
+
+    public static List<Car> getListCar(int listSize) {
         List<Car> newList = new ArrayList<>();
         for (int i = 1; i <= listSize; i++) {
             int power = 0;
@@ -229,7 +159,7 @@ public class UserInput {
             System.out.println("введите мощность автомобиля");
             boolean stopBlock = true;
             while (stopBlock) {
-                String dataEntry = sc.nextLine();
+                String dataEntry = ScannerHolder.get().nextLine();
                 stopBlock = powerForCars(dataEntry);
                 if (stopBlock) {
                     int a = Integer.parseInt(dataEntry);
@@ -247,7 +177,7 @@ public class UserInput {
             System.out.println("введите название автомобиля");
             stopBlock = true;
             while (stopBlock) {
-                model = sc.nextLine();
+                model = ScannerHolder.get().nextLine();
                 if (model != null) {
                     //Проверка в названии автомобиля только латинские буквы и цифры.
                     String[] modelChar = model.split("");
@@ -276,7 +206,7 @@ public class UserInput {
             System.out.println("введите год выпуска автомобиля");
             stopBlock = true;
             while (stopBlock) {
-                String dataEntry = sc.nextLine();
+                String dataEntry = ScannerHolder.get().nextLine();
                 stopBlock = yearOfCar(dataEntry);
                 if (stopBlock) {
                     int a = Integer.parseInt(dataEntry);
@@ -299,7 +229,7 @@ public class UserInput {
         return newList;
     }
 
-    public static List<Book> getListBook(Scanner sc, int listSize) {
+    public static List<Book> getListBook(int listSize) {
         List<Book> newList = new ArrayList<>();
         for (int i = 1; i <= listSize; i++) {
             String author = null;
@@ -309,7 +239,7 @@ public class UserInput {
             System.out.println("введите автора");
             boolean stopBlockInput = true;
             while (stopBlockInput) {
-                author = sc.nextLine();
+                author = ScannerHolder.get().nextLine();
                 if (author != null) {
                     //Проверка в названии только латинские буквы.
                     String[] authorChar = author.split("");
@@ -338,7 +268,7 @@ public class UserInput {
             System.out.println("введите название книги");
             stopBlockInput = true;
             while (stopBlockInput) {
-                title = sc.nextLine();
+                title = ScannerHolder.get().nextLine();
                 if (title != null) {
                     //Проверка в названии только латинские буквы.
                     String[] titleChar = title.split("");
@@ -367,7 +297,7 @@ public class UserInput {
             System.out.println("введите количество страниц");
             stopBlockInput = true;
             while (stopBlockInput) {
-                String dataEntry = sc.nextLine();
+                String dataEntry = ScannerHolder.get().nextLine();
                 stopBlockInput = pagesQuantityForBooks(dataEntry);
                 if (stopBlockInput) {
                     int a = Integer.parseInt(dataEntry);
@@ -390,7 +320,7 @@ public class UserInput {
         return newList;
     }
 
-    public static List<RootCrop> getListRootCrop(Scanner sc, int listSize) {
+    public static List<RootCrop> getListRootCrop(int listSize) {
         List<RootCrop> newList = new ArrayList<>();
         for (int i = 1; i <= listSize; i++) {
             String type = null;
@@ -400,7 +330,7 @@ public class UserInput {
             System.out.println("введите тип корнеплода");
             boolean stopBlockInput = true;
             while (stopBlockInput) {
-                type = sc.nextLine();
+                type = ScannerHolder.get().nextLine();
                 if (type != null) {
                     //Проверка в названии автомобиля только латинские буквы и цифры.
                     String[] typeChar = type.split("");
@@ -429,7 +359,7 @@ public class UserInput {
             System.out.println("введите вес корнеплода в кг.");
             stopBlockInput = true;
             while (stopBlockInput) {
-                String dataEntry = sc.nextLine();
+                String dataEntry = ScannerHolder.get().nextLine();
                 stopBlockInput = weightRootCrop(dataEntry);
                 if (stopBlockInput) {
                     double a = Double.parseDouble(dataEntry);
@@ -447,7 +377,7 @@ public class UserInput {
             System.out.println("введите цвет");
             stopBlockInput = true;
             while (stopBlockInput) {
-                color = sc.nextLine();
+                color = ScannerHolder.get().nextLine();
                 if (color != null) {
                     //Проверка в названии только латинские буквы и цифры.
                     String[] colorChar = color.split("");

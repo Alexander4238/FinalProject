@@ -11,8 +11,8 @@ import static org.example.util.random.RandomUtils.getRandomStringFromArray;
 
 public abstract class RootCropRandom {
 
-    private static final int WEIGHT_MIN = 100;
-    private static final int WEIGHT_MAX = 5000;
+    private static final double WEIGHT_MIN = 100.0;
+    private static final double WEIGHT_MAX = 5000.0;
     private static final String[] types = {"Морковь", "Репа", "Свёкла", "Редис", "Картошка", "Хрен"};
     private static final String[] colors = {"Красный", "Белый", "Оранжевый", "Коричневый", "Серый", "Желтый"};
 

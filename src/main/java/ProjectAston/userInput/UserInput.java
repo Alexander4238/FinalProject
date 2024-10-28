@@ -15,47 +15,176 @@ public class UserInput {
     //размер списка
     static int listSize = 0;
 
+    public static boolean onlyOneNumber(String strLine){
+        boolean b = true;
+        String[] dataEntryArray = strLine.split("");
+        for(String s : dataEntryArray) {
+            if (s.matches("[1-3]")) {
+            } else {
+                b = false;
+                break;
+            }
+        }
+        if(b) {
+            int a = Integer.parseInt(strLine);
+            if(a > 0 && a < 4) {
+                return b;
+            } else {
+                b = false;
+                return b;
+            }
+        } else {
+            return b;
+        }
+    }
+    public static boolean listSize(String strLine){
+        boolean b = true;
+        String[] dataEntryArray = strLine.split("");
+        for(String s : dataEntryArray) {
+            if (s.matches("[0-9]")) {
+            } else {
+                b = false;
+                break;
+            }
+        }
+        if(b) {
+            int a = Integer.parseInt(strLine);
+            if(a > 0 && a < 11) {
+                return b;
+            } else {
+                b = false;
+                return b;
+            }
+        } else {
+            return b;
+        }
+    }
+    public static boolean powerForCars(String strLine){
+        boolean b = true;
+        String[] dataEntryArray = strLine.split("");
+        for(String s : dataEntryArray) {
+            if (s.matches("[0-9]")) {
+            } else {
+                b = false;
+                break;
+            }
+        }
+        if(b) {
+            int a = Integer.parseInt(strLine);
+            if(a > 0 && a < 3001) {
+                return b;
+            } else {
+                b = false;
+                return b;
+            }
+        } else {
+            return b;
+        }
+    }
+    public static boolean yearOfCar(String strLine){
+        boolean b = true;
+        String[] dataEntryArray = strLine.split("");
+        for(String s : dataEntryArray) {
+            if (s.matches("[0-9]")) {
+            } else {
+                b = false;
+                break;
+            }
+        }
+        if(b) {
+            int a = Integer.parseInt(strLine);
+            if(a > 1700 && a < 2024) {
+                return b;
+            } else {
+                b = false;
+                return b;
+            }
+        } else {
+            return b;
+        }
+    }
+    public static boolean pagesQuantityForBooks(String strLine){
+        boolean b = true;
+        String[] dataEntryArray = strLine.split("");
+        for(String s : dataEntryArray) {
+            if (s.matches("[0-9]")) {
+            } else {
+                b = false;
+                break;
+            }
+        }
+        if(b) {
+            int a = Integer.parseInt(strLine);
+            if(a > 0 && a < 5001) {
+                return b;
+            } else {
+                b = false;
+                return b;
+            }
+        } else {
+            return b;
+        }
+    }
+    public static boolean weightRootCrop(String strLine){
+        boolean b = true;
+        String[] dataEntryArray = strLine.split("");
+        for(String s : dataEntryArray) {
+            if (s.matches("[0-9.]")) {
+            } else {
+                b = false;
+                break;
+            }
+        }
+        if(b) {
+            double a = Double.parseDouble(strLine);
+            if(a > 0 && a < 1001) {
+                return b;
+            } else {
+                b = false;
+                return b;
+            }
+        } else {
+            return b;
+        }
+    }
+
 
     public static void manualWorkWithList(Scanner sc){
         System.out.println("выберите тип класса(введите цифру 1-3): 1.Автомобиль  2.Книга  3.Корнеплод");
         boolean stopBlock = true;
         while (stopBlock) {
-            if(sc.hasNextInt()) {
-                classType = sc.nextInt();
-                if(classType < 1 || classType > 3) {
-                    System.out.println("вы ввели не верное значение для типа");
-                    System.out.println("выберите тип класса(введите цифру 1-3): 1.Автомобиль  2.Книга  3.Корнеплод");
-                } else {
-                    System.out.println("тип выбран");
-                    stopBlock = false;
-                }
+            String dataEntry = sc.nextLine();
+            stopBlock = onlyOneNumber(dataEntry);
+            if(stopBlock) {
+                int a = Integer.parseInt(dataEntry);
+                classType = a;
+                System.out.format("тип выбран %s", (a == 1 ? "Автомобиль" : (a == 2 ? "Книга" : "Корнеплод")));
+                System.out.println();
+                stopBlock = false;
             } else {
                 System.out.println("вы ввели не верное значение для типа");
                 System.out.println("выберите тип класса(введите цифру 1-3): 1.Автомобиль  2.Книга  3.Корнеплод");
-                sc.next();
+                stopBlock = true;
             }
         }
         System.out.println("введите размер списка");
         stopBlock = true;
         while (stopBlock){
-            if(sc.hasNextInt()) {
-                listSize = sc.nextInt();
-                sc.nextLine();
-                if(listSize < 1 || listSize > 10) {
-                    System.out.println("вы ввели не верное значение для списка");
-                    System.out.println("за рамками 1-10");
-                    System.out.println("Введите размер списка");
-                } else {
-                    System.out.println("размер списка - " + listSize);
-                    stopBlock = false;
-                }
+            String dataEntry = sc.nextLine();
+            stopBlock = listSize(dataEntry);
+            if(stopBlock) {
+                int a = Integer.parseInt(dataEntry);
+                listSize = a;
+                System.out.println("размер списка - " + listSize);
+                System.out.println();
+                stopBlock = false;
             } else {
                 System.out.println("вы ввели не верное значение для списка");
-                System.out.println("только целые положительные числа");
-                sc.next();
+                System.out.println("введите размер списка от 1 до 10 (размер для теста)");
+                stopBlock = true;
             }
-        }
 
+        }
         System.out.println("начнем заполнять в следующем формате ...");
         switch (classType) {
             case 1 : System.out.println("Мощность(л.с); Модель; Год выпуска");
@@ -69,12 +198,15 @@ public class UserInput {
         if(classType == 1){
             List<Car> listCar = getListCar(sc, listSize);
             CustomSorting.customSortingOfCars(sc, listCar);
+            //Сохранить сортированный список listCar в базу и написать об этом
         } else if (classType == 2) {
             List<Book> listBook = getListBook(sc, listSize);
             CustomSorting.customSortingOfBook(sc, listBook);
+            //Сохранить сортированный список listBook в базу и написать об этом
         } else {
             List<RootCrop> listRootCrop = getListRootCrop(sc, listSize);
             CustomSorting.customSortingOfRootCrop(sc, listRootCrop);
+            //Сохранить сортированный список listRootCrop в базу и написать об этом1
         }
 
     }
@@ -86,29 +218,29 @@ public class UserInput {
             int yearOfProduction = 1;
 
             System.out.println("введите мощность автомобиля");
-            boolean stopBlockInput = true;
-            while (stopBlockInput) {
-                if (sc.hasNextInt()) {
-                    power = sc.nextInt();
-                    sc.nextLine();
-                    if(power > 0 && power < 3000) {
-                        System.out.println("мощность автомобиля - " + power + " л.с.");
-                        stopBlockInput = false;
-                    } else {
-                        System.out.println("мощность автомобиля за рамками 0-3000");
-                    }
+            boolean stopBlock = true;
+            while (stopBlock) {
+                String dataEntry = sc.nextLine();
+                stopBlock = powerForCars(dataEntry);
+                if(stopBlock) {
+                    int a = Integer.parseInt(dataEntry);
+                    power = a;
+                    System.out.println("мощность автомобиля - " + power + " л.с.");
+                    System.out.println();
+                    stopBlock = false;
                 } else {
-                    System.out.println("вы ввели не в верном формате для мощности автомобиля");
-                    sc.next();
+                    System.out.println("вы ввели не верное значение для мощности");
+                    System.out.println("введите число от 1 до 3000");
+                    stopBlock = true;
                 }
             }
 
             System.out.println("введите название автомобиля");
-            stopBlockInput = true;
-            while (stopBlockInput) {
+            stopBlock = true;
+            while (stopBlock) {
                 model = sc.nextLine();
                 if (model != null) {
-                    //Проверка в названии автомобиля только латинские буквы.
+                    //Проверка в названии автомобиля только латинские буквы и цифры.
                     String[] modelChar = model.split("");
                     boolean b = true;
                     for(String s: modelChar){
@@ -118,30 +250,37 @@ public class UserInput {
                         }
                     }
                     if(b){
-                        System.out.println("название автомобиля - " + model);
-                        stopBlockInput = false;
+                        if(model.length() < 50) {
+                            System.out.println("название автомобиля - " + model);
+                            stopBlock = false;
+                        }else {
+                            System.out.println("название автомобиля не корректно");
+                            System.out.println("только латинские буквы и цифры не более 50 символов");
+                        }
                     } else {
                         System.out.println("название автомобиля не корректно");
-                        System.out.println("только латинские буквы и цифры");
+                        System.out.println("только латинские буквы и цифры не более 50 символов");
                     }
                 }
             }
 
             System.out.println("введите год выпуска автомобиля");
-            stopBlockInput = true;
-            while (stopBlockInput) {
-                if (sc.hasNextInt()) {
-                    yearOfProduction = sc.nextInt();
-                    if (yearOfProduction < 2025 && yearOfProduction > 1700) {
-                        System.out.println("год выпуска автомобиля - " + yearOfProduction);
-                        stopBlockInput = false;
-                    } else {
-                        System.out.println("год выпуска за рамками 1700-2024");
-                    }
+            stopBlock = true;
+            while (stopBlock) {
+                String dataEntry = sc.nextLine();
+                stopBlock = yearOfCar(dataEntry);
+                if(stopBlock) {
+                    int a = Integer.parseInt(dataEntry);
+                    yearOfProduction = a;
+                    System.out.println("год выпуска - " + yearOfProduction);
+                    System.out.println();
+                    stopBlock = false;
                 } else {
-                    System.out.println("год выпуска не в int");
-                    sc.next();
+                    System.out.println("вы ввели не верное значение для года выпуска");
+                    System.out.println("введите число от 1700 до 2024");
+                    stopBlock = true;
                 }
+
             }
             Car car = new Car.CarBuilder().setPower(power).setModel(model).setYear(yearOfProduction).build();
             System.out.println("занесли в список объект № " + i);
@@ -172,11 +311,16 @@ public class UserInput {
                         }
                     }
                     if(b){
-                        System.out.println("автор - " + author);
-                        stopBlockInput = false;
+                        if(author.length() < 50) {
+                            System.out.println("автор - " + author);
+                            stopBlockInput = false;
+                        }else {
+                            System.out.println("автора ввели не корректно");
+                            System.out.println("только латинские буквы не более 50 символов");
+                        }
                     } else {
                         System.out.println("автора ввели не корректно");
-                        System.out.println("только латинские буквы");
+                        System.out.println("только латинские буквы не более 50 символов");
                     }
                 }
             }
@@ -186,27 +330,48 @@ public class UserInput {
             while (stopBlockInput) {
                 title = sc.nextLine();
                 if (title != null) {
-                    System.out.println("название книги - " + title);
-                    stopBlockInput = false;
+                    //Проверка в названии только латинские буквы.
+                    String[] titleChar = title.split("");
+                    boolean b = true;
+                    for(String s: titleChar){
+                        if(!s.matches("[a-zA-Z0-9 ]")){
+                            b = false;
+                            break;
+                        }
+                    }
+                    if(b){
+                        if(title.length() < 50) {
+                            System.out.println("название книги - " + title);
+                            stopBlockInput = false;
+                        }else {
+                            System.out.println("название книги ввели не корректно");
+                            System.out.println("только латинские буквы и цифры не более 50 символов");
+                        }
+                    } else {
+                        System.out.println("название книги ввели не корректно");
+                        System.out.println("только латинские буквы и цифры не более 50 символов");
+                    }
                 }
             }
 
             System.out.println("введите количество страниц");
             stopBlockInput = true;
             while (stopBlockInput) {
-                if (sc.hasNextInt()) {
-                    pagesQuantity = sc.nextInt();
-                    if (pagesQuantity < 10000 && pagesQuantity > 0) {
-                        System.out.println("количество страниц - " + pagesQuantity);
-                        stopBlockInput = false;
-                    } else {
-                        System.out.println("количество страниц 0-10000");
-                    }
+                String dataEntry = sc.nextLine();
+                stopBlockInput = pagesQuantityForBooks(dataEntry);
+                if(stopBlockInput) {
+                    int a = Integer.parseInt(dataEntry);
+                    pagesQuantity = a;
+                    System.out.println("количество страниц - " + pagesQuantity);
+                    System.out.println();
+                    stopBlockInput = false;
                 } else {
-                    System.out.println("количество страниц не корректно");
-                    sc.next();
+                    System.out.println("вы ввели не верное значение для количество страниц");
+                    System.out.println("введите число от 1 до 5000");
+                    stopBlockInput = true;
                 }
             }
+
             Book book = new Book.BookBuilder().author(author).title(title).pagesQuantity(pagesQuantity).build();
             System.out.println("занесли в список объект № " + i);
             newList.add(book);
@@ -226,41 +391,45 @@ public class UserInput {
             while (stopBlockInput) {
                 type = sc.nextLine();
                 if (type != null) {
-                    //Проверка в названии только латинские буквы и цифры.
-                    String[] authorChar = type.split("");
+                    //Проверка в названии автомобиля только латинские буквы и цифры.
+                    String[] typeChar = type.split("");
                     boolean b = true;
-                    for(String s: authorChar){
+                    for(String s: typeChar){
                         if(!s.matches("[a-zA-Z0-9 ]")){
                             b = false;
                             break;
                         }
                     }
                     if(b){
-                        System.out.println("тип - " + type);
-                        stopBlockInput = false;
+                        if(type.length() < 50) {
+                            System.out.println("тип корнеплода - " + type);
+                            stopBlockInput = false;
+                        }else {
+                            System.out.println("название типа корнеплода не корректно");
+                            System.out.println("только латинские буквы и цифры не более 50 символов");
+                        }
                     } else {
-                        System.out.println("тип ввели не корректно");
-                        System.out.println("только латинские буквы и цифры");
+                        System.out.println("название типа корнеплода не корректно");
+                        System.out.println("только латинские буквы и цифры не более 50 символов");
                     }
                 }
             }
 
-            System.out.println("введите вес в кг.");
+            System.out.println("введите вес корнеплода в кг.");
             stopBlockInput = true;
             while (stopBlockInput) {
-                if (sc.hasNextDouble()) {
-                    weight = sc.nextDouble();
-                    sc.nextLine();
-                    if(weight > 0 && weight < 1000) {
-                        System.out.println("вес - " + weight + " кг.");
-                        stopBlockInput = false;
-                    } else {
-                        System.out.println("вес ввели не корректно");
-                        System.out.println("вес за рамками 0-1000");
-                    }
+                String dataEntry = sc.nextLine();
+                stopBlockInput = weightRootCrop(dataEntry);
+                if(stopBlockInput) {
+                    double a = Double.parseDouble(dataEntry);
+                    weight = a;
+                    System.out.println("вес корнеплода - " + weight + " кг.");
+                    System.out.println();
+                    stopBlockInput = false;
                 } else {
-                    System.out.println("вы ввели не в верном формате для вес");
-                    sc.next();
+                    System.out.println("вы ввели не верный вес корнеплода");
+                    System.out.println("введите число от 1.0 до 1000.0");
+                    stopBlockInput = true;
                 }
             }
 
@@ -270,20 +439,25 @@ public class UserInput {
                 color = sc.nextLine();
                 if (color != null) {
                     //Проверка в названии только латинские буквы и цифры.
-                    String[] authorChar = type.split("");
+                    String[] colorChar = color.split("");
                     boolean b = true;
-                    for(String s: authorChar){
+                    for(String s: colorChar){
                         if(!s.matches("[a-zA-Z0-9 ]")){
                             b = false;
                             break;
                         }
                     }
                     if(b){
-                        System.out.println("цвет - " + color);
-                        stopBlockInput = false;
+                        if(color.length() < 50) {
+                            System.out.println("цвет корнеплода - " + color);
+                            stopBlockInput = false;
+                        }else {
+                            System.out.println("цвет корнеплода не корректен");
+                            System.out.println("только латинские буквы и цифры не более 50 символов");
+                        }
                     } else {
-                        System.out.println("цвет ввели не корректно");
-                        System.out.println("только латинские буквы и цифры");
+                        System.out.println("цвет корнеплода не корректен");
+                        System.out.println("только латинские буквы и цифры не более 50 символов");
                     }
                 }
             }
@@ -294,5 +468,4 @@ public class UserInput {
         }
         return newList;
     }
-
 }

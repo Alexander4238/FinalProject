@@ -12,30 +12,27 @@ import java.util.Scanner;
 
 public class UserMenu {
     public static void userMenu(){
-        //как работать со списком
+//        //как работать со списком
         int listForWork = 0;
 
         System.out.println("Вас приветствует компания Aston");
-        System.out.println("Будет работать со списками: автомобилей, книг, корнеплодов");
+        System.out.println("Будем работать со списками: автомобилей, книг, корнеплодов");
         System.out.println("выберите как работать со списком(введите цифру 1-3): 1.вручную  2.из файла  3.рандом");
         Scanner sc = new Scanner(System.in);
         boolean stopBlock = true;
         while (stopBlock) {
-            if(sc.hasNextInt()) {
-                listForWork = sc.nextInt();
-                if(listForWork < 1 || listForWork > 3) {
-                    System.out.println("вы ввели не верное значение для работы со списком");
-                    System.out.println("введите цифру 1-3: 1.вручную  2.из файла  3.рандом");
-                } else {
-                    System.out.format("способ выбран %s", listForWork == 1 ? "вручную" :
-                            (listForWork == 2 ? "из файла" : "рандом" ));
-                    System.out.println();
-                    stopBlock = false;
-                }
-            } else {
+            String dataEntry = sc.nextLine();
+            stopBlock = UserInput.onlyOneNumber(dataEntry);
+            if(stopBlock){
+                int a = Integer.parseInt(dataEntry);
+                listForWork = a;
+                System.out.format("способ выбран %s", (a == 1 ? "вручную" : (a == 2 ? "из файла" : "рандом")));
+                System.out.println();
+                stopBlock = false;
+            }else {
                 System.out.println("вы ввели не верное значение для работы со списком");
                 System.out.println("введите цифру 1-3: 1.вручную  2.из файла  3.рандом");
-                sc.next();
+                stopBlock = true;
             }
         }
         if(listForWork == 1){

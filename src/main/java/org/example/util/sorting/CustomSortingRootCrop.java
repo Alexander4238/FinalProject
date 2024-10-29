@@ -16,13 +16,13 @@ public class CustomSortingRootCrop implements CustomSortingStrategy {
         int sortForRootCrop = 1;
         boolean stopBlock = true;
         while (stopBlock) {
-            System.out.println("по какому параметру сортировать список? 1.типу 2.весу 3.цвету");
+            System.out.println("по какому параметру сортировать список? 1.типу 2.весу 3.цвету 4.четные по весу");
             String dataEntry = ScannerHolder.get().nextLine();
             Optional<Integer> choiceOpt = Validator.getValidInt(dataEntry);
-            if (choiceOpt.isPresent() && choiceOpt.get() > 0 && choiceOpt.get() < 4) {
+            if (choiceOpt.isPresent() && choiceOpt.get() > 0 && choiceOpt.get() < 5) {
                 sortForRootCrop = Integer.parseInt(dataEntry);
                 System.out.format("по %s", sortForRootCrop == 1 ? "типу" :
-                        (sortForRootCrop == 2 ? "весу" : "цвету"));
+                        (sortForRootCrop == 2 ? "весу" : (sortForRootCrop == 3 ? "цвету" : "четные по весу")));
                 System.out.println();
                 stopBlock = false;
             } else {
@@ -39,6 +39,9 @@ public class CustomSortingRootCrop implements CustomSortingStrategy {
                 break;
             case 3:
                 Sort.mergeSort(listRootCrop, Comparator.comparing(RootCrop::getColor));
+                break;
+            case 4:
+                Sort.sortEvenNatural(listRootCrop, Comparator.comparing(RootCrop::getWeight));
                 break;
         }
         listRootCrop.forEach(System.out::println);

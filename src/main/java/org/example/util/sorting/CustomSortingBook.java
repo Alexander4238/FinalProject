@@ -16,13 +16,13 @@ public class CustomSortingBook implements CustomSortingStrategy {
         int sortForBook = 1;
         boolean stopBlock = true;
         while (stopBlock) {
-            System.out.println("по какому параметру сортировать список? 1.автору 2.названию 3.количеству страниц");
+            System.out.println("по какому параметру сортировать список? 1.автору 2.названию 3.количеству страниц 4.четные по кол-ву страниц");
             String dataEntry = ScannerHolder.get().nextLine();
             Optional<Integer> choiceOpt = Validator.getValidInt(dataEntry);
-            if (choiceOpt.isPresent() && choiceOpt.get() > 0 && choiceOpt.get() < 4) {
+            if (choiceOpt.isPresent() && choiceOpt.get() > 0 && choiceOpt.get() < 5) {
                 sortForBook = Integer.parseInt(dataEntry);
                 System.out.format("по %s", sortForBook == 1 ? "автору" :
-                        (sortForBook == 2 ? "названию" : "количеству страниц"));
+                        (sortForBook == 2 ? "названию" : (sortForBook == 3 ? "количеству страниц" : "четные по кол-ву страниц")));
                 System.out.println();
                 stopBlock = false;
             } else {
@@ -39,6 +39,9 @@ public class CustomSortingBook implements CustomSortingStrategy {
                 break;
             case 3:
                 Sort.mergeSort(listBook, Comparator.comparing(Book::getPagesQuantity));
+                break;
+            case 4:
+                Sort.sortEvenNatural(listBook, Comparator.comparing(Book::getPagesQuantity));
                 break;
         }
         listBook.forEach(System.out::println);

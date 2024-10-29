@@ -16,13 +16,13 @@ public class CustomSortingCar implements CustomSortingStrategy {
         int sortForCar = 1;
         boolean stopBlock = true;
         while (stopBlock) {
-            System.out.println("по какому параметру сортировать список? 1.по мощности 2.названию 3.год выпуска");
+            System.out.println("по какому параметру сортировать список? 1.по мощности 2.названию 3.год выпуска 4.четные по году выпуска");
             String dataEntry = ScannerHolder.get().nextLine();
             Optional<Integer> choiceOpt = Validator.getValidInt(dataEntry);
-            if (choiceOpt.isPresent() && choiceOpt.get() > 0 && choiceOpt.get() < 4) {
+            if (choiceOpt.isPresent() && choiceOpt.get() > 0 && choiceOpt.get() < 5) {
                 sortForCar = Integer.parseInt(dataEntry);
                 System.out.format("по %s", sortForCar == 1 ? "мощности" :
-                        (sortForCar == 2 ? "названию" : "году выпуска"));
+                        (sortForCar == 2 ? "названию" : (sortForCar == 3 ? "году выпуска" : "четные по году выпуска")));
                 System.out.println();
                 stopBlock = false;
             } else {
@@ -39,6 +39,9 @@ public class CustomSortingCar implements CustomSortingStrategy {
                 break;
             case 3:
                 Sort.mergeSort(listCar, Comparator.comparing(Car::getYear));
+                break;
+            case 4:
+                Sort.sortEvenNatural(listCar, Comparator.comparing(Car::getYear));
                 break;
         }
         listCar.forEach(System.out::println);

@@ -2,11 +2,29 @@ package org.example.util;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public abstract class Sort {
     public static <T extends Comparable> void mergeSort(List<T> list) {
         mergeSort(list, T::compareTo);
+    }
+
+    public static <T> void sortEvenNatural(List<T> list, Comparator<T> comparator) {
+        List<T> sortEvenList = new ArrayList<>();
+        Queue<T> queue = new LinkedList<>();
+
+        for (int i = 1; i < list.size(); i+=2) {
+            T obj = list.get(i);
+            sortEvenList.add(obj);
+        }
+        sortEvenList.sort(comparator);
+        queue.addAll(sortEvenList);
+
+        for (int i = 1; i < list.size(); i+=2) {
+            list.set(i, queue.poll());
+        }
     }
 
     public static <T> void mergeSort(List<T> list, Comparator<T> comparator) {

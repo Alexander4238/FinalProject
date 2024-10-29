@@ -9,14 +9,14 @@ import java.util.stream.Stream;
 import static org.example.util.random.RandomUtils.getRandomDoubleInRange;
 import static org.example.util.random.RandomUtils.getRandomStringFromArray;
 
-public abstract class RootCropRandom {
+public class RootCropRandom implements RandomGeneratorStrategy {
 
     private static final double WEIGHT_MIN = 100.0;
     private static final double WEIGHT_MAX = 5000.0;
     private static final String[] types = {"Морковь", "Репа", "Свёкла", "Редис", "Картошка", "Хрен"};
     private static final String[] colors = {"Красный", "Белый", "Оранжевый", "Коричневый", "Серый", "Желтый"};
 
-    public static List<RootCrop> getRandomList(int listSize) {
+    public List<RootCrop> getRandomList(int listSize) {
         return Stream.generate(() ->
                         new RootCrop.RootCropBuilder()
                                 .setType(getRandomStringFromArray(types))

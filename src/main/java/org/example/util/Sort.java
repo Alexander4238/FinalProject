@@ -5,11 +5,11 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class Sort {
-    public static <T extends Comparable> void mergeSort (List<T> list) {
+    public static <T extends Comparable> void mergeSort(List<T> list) {
         mergeSort(list, T::compareTo);
     }
 
-    public static <T> void mergeSort (List<T> list, Comparator<T> comparator) {
+    public static <T> void mergeSort(List<T> list, Comparator<T> comparator) {
         if (list.size() <= 1) {
             return;
         }

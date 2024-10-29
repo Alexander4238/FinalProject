@@ -7,8 +7,7 @@ public abstract class Validator {
         try {
             Integer result = Integer.parseInt(input);
             return Optional.of(result);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return Optional.empty();
         }
     }
@@ -17,8 +16,7 @@ public abstract class Validator {
         try {
             Double result = Double.parseDouble(input);
             return Optional.of(result);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return Optional.empty();
         }
     }

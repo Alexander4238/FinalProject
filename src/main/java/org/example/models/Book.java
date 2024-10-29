@@ -50,7 +50,8 @@ public class Book implements Serializable {
         private String title;
         private Integer pagesQuantity;
 
-        public BookBuilder() {}
+        public BookBuilder() {
+        }
 
         public BookBuilder author(String author) {
             this.author = author;

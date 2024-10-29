@@ -17,9 +17,11 @@ public class Car implements Serializable {
     public int getPower() {
         return power;
     }
+
     public String getModel() {
         return model;
     }
+
     public int getYear() {
         return year;
     }
@@ -47,15 +49,17 @@ public class Car implements Serializable {
         private String model;
         private int year;
 
-        public CarBuilder setPower(int power){
+        public CarBuilder setPower(int power) {
             this.power = power;
             return this;
         }
-        public CarBuilder setModel(String model){
+
+        public CarBuilder setModel(String model) {
             this.model = model;
             return this;
         }
-        public CarBuilder setYear(int year){
+
+        public CarBuilder setYear(int year) {
             this.year = year;
             return this;
         }

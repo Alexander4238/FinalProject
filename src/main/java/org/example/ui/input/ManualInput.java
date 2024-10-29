@@ -1,26 +1,29 @@
-package org.example.ui;
+package org.example.ui.input;
 
-import org.example.models.RootCrop;
+import org.example.ui.manual_input.ManualListSupplierStrategy;
 import org.example.util.ScannerHolder;
 import org.example.util.Validator;
-import org.example.util.random.BookRandom;
-import org.example.util.random.CarRandom;
-import org.example.util.random.RootCropRandom;
 
 import java.util.List;
 import java.util.Optional;
 
-public class RandomInput {
-    public static List getList(int classType) {
-        int listSize = 0;
+public class ManualInput implements InputStrategy {
+    private final ManualListSupplierStrategy manualListSupplierStrategy;
+
+    public ManualInput(ManualListSupplierStrategy manualListSupplierStrategy) {
+        this.manualListSupplierStrategy = manualListSupplierStrategy;
+    }
+
+    public List getList() {
+        int size = 0;
         System.out.println("введите размер списка");
         boolean stopBlock = true;
         while (stopBlock) {
             String dataEntry = ScannerHolder.get().nextLine();
             Optional<Integer> sizeOpt = Validator.getValidInt(dataEntry);
             if (sizeOpt.isPresent() && sizeOpt.get() > 0 && sizeOpt.get() < 11) {
-                listSize = Integer.parseInt(dataEntry);
-                System.out.println("размер списка - " + listSize);
+                size = Integer.parseInt(dataEntry);
+                System.out.println("размер списка - " + size);
                 System.out.println();
                 stopBlock = false;
             } else {
@@ -30,15 +33,8 @@ public class RandomInput {
             }
         }
 
-        List list = null;
-        if (classType == 1) {
-            list = CarRandom.getRandomList(listSize);
-        } else if (classType == 2) {
-            list = BookRandom.getRandomList(listSize);
-        } else {
-            list = RootCropRandom.getRandomList(listSize);
-        }
-        list.forEach(System.out::println);
-        return list;
+        System.out.println("начнем заполнять в следующем формате ...");
+
+        return manualListSupplierStrategy.getList(size);
     }
 }
